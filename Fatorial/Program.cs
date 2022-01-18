@@ -7,38 +7,43 @@ namespace Fatorial
         static void Main(string[] args)
         {
             Console.WriteLine("Insira um número para fatorar:");
-            var numFat = new NumeroFat(Convert.ToInt32(Console.ReadLine()));
+            var numFat = new NumeroFat(int.Parse(Console.ReadLine()));
             Console.WriteLine();
 
             Console.WriteLine($"Fatorial de: {numFat.Numero}\n");
-            var fatorial = numFat.Numero;
-            var result = numFat.Numero;
 
-
-            for (int i = numFat.Numero - 1; i > 0; i--)
-            {
-                result *= i;
-                Console.WriteLine($"{fatorial} x {i} = {result}");
-                fatorial *= i;
-            }
+            numFat.Fat(numFat.Numero);
 
             Console.WriteLine();
-            Console.Write($"Fatorial de {numFat.Numero} é: {numFat.MostrarResuldado(result.ToString())}\n");
+            Console.Write($"Fatorial de {numFat.Numero} é: ");
+            numFat.MostrarResuldado();
         }
 
         public class NumeroFat
         {
             public NumeroFat(int numero)
             {
-                this.Numero = numero;
+                Numero = numero;
             }
             public int Numero { get; set; }
             public string Resultado { get; set; }
 
-            public string MostrarResuldado(string result)
+            public int Fat(int numero)
             {
-                this.Resultado = result;
-                return Resultado;
+                int result;
+                if (numero <= 1)
+                    result = 1;
+                else
+                    result = numero * Fat(numero - 1);
+                
+
+                Resultado = result.ToString();
+                return result;
+            }
+
+            public void MostrarResuldado()
+            {
+                Console.WriteLine(Resultado);
             }
         }
     }
